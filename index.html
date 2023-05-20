@@ -198,70 +198,54 @@
       const videoTracks = localVideo.srcObject.getVideoTracks();
       videoTracks.forEach(track => {
         track.enabled = !track.enabled;
-        isCameraEnabled = track.enabled;
-
-        if (isCameraEnabled) {
-          localStatus.textContent = '';
-        } else {
-          localStatus.textContent = 'Camera Off';
-        }
       });
+
+      isCameraEnabled = !isCameraEnabled;
+      updateStatus();
     }
 
     function toggleMicrophone() {
       const audioTracks = localVideo.srcObject.getAudioTracks();
       audioTracks.forEach(track => {
         track.enabled = !track.enabled;
-        isMicrophoneEnabled = track.enabled;
-
-        if (isMicrophoneEnabled) {
-          localStatus.textContent = '';
-        } else {
-          localStatus.textContent = 'Microphone Off';
-        }
       });
+
+      isMicrophoneEnabled = !isMicrophoneEnabled;
+      updateStatus();
+    }
+
+    function updateStatus() {
+      if (!isCameraEnabled && !isMicrophoneEnabled) {
+        localStatus.textContent = 'Camera and microphone are disabled';
+      } else if (!isCameraEnabled) {
+        localStatus.textContent = 'Camera is disabled';
+      } else if (!isMicrophoneEnabled) {
+        localStatus.textContent = 'Microphone is disabled';
+      } else {
+        localStatus.textContent = '';
+      }
     }
 
     function joinMeeting() {
       const roomId = roomIdInput.value;
+      if (roomId) {
+        startLocalVideo();
+      } else {
+        alert('Please enter a room ID');
+      }
+    }
 
+    function leaveMeeting() {
       if (peer) {
         peer.destroy();
         peer = null;
       }
-
-      startLocalVideo();
-      roomIdInput.disabled = true;
-
-      const socket = io(); // Connect to the Socket.IO server
-
-      socket.on('connect', () => {
-        socket.emit('join', roomId); // Send the room ID to the server
-      });
-
-      socket.on('joined', () => {
-        console.log('Successfully joined the meeting.');
-      });
-
-      socket.on('full', () => {
-        console.log('The meeting room is full.');
-        roomIdInput.disabled = false;
-      });
-
-      socket.on('disconnect', () => {
-        console.log('Disconnected from the server.');
-        roomIdInput.disabled = false;
-      });
+      localVideo.srcObject.getTracks().forEach(track => track.stop());
+      localVideo.srcObject = null;
+      const remoteVideos = document.querySelectorAll('#video-container video:not(#local-video)');
+      remoteVideos.forEach(video => video.remove());
+      roomIdInput.value = '';
     }
-
-    function leaveMeeting() {
-      const socket = io(); // Connect to the Socket.IO server
-      socket.emit('leave'); // Notify the server that the user is leaving
-      handlePeerDisconnect();
-      roomIdInput.disabled = false;
-    }
-
-    startLocalVideo();
   </script>
 </body>
 </html>
