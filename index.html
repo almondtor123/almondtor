@@ -198,41 +198,98 @@
       const videoTracks = localVideo.srcObject.getVideoTracks();
       videoTracks.forEach(track => {
         track.enabled = !track.enabled;
-      });
+        isCameraEnabled = track.enabled;
 
-      isCameraEnabled = !isCameraEnabled;
-      updateStatus();
+        if (isCameraEnabled) {
+          localStatus.textContent = '';
+        } else {
+          localStatus.textContent = 'Camera Off';
+        }
+      });
     }
 
     function toggleMicrophone() {
       const audioTracks = localVideo.srcObject.getAudioTracks();
       audioTracks.forEach(track => {
         track.enabled = !track.enabled;
+        isMicrophoneEnabled = track.enabled;
+
+        if (isMicrophoneEnabled) {
+          localStatus.textContent = '';
+        } else {
+          localStatus.textContent = 'Microphone Off';
+        }
       });
-
-      isMicrophoneEnabled = !isMicrophoneEnabled;
-      updateStatus();
-    }
-
-    function updateStatus() {
-      if (!isCameraEnabled && !isMicrophoneEnabled) {
-        localStatus.textContent = 'Camera and microphone are disabled';
-      } else if (!isCameraEnabled) {
-        localStatus.textContent = 'Camera is disabled';
-      } else if (!isMicrophoneEnabled) {
-        localStatus.textContent = 'Microphone is disabled';
-      } else {
-        localStatus.textContent = '';
-      }
     }
 
     function joinMeeting() {
-      const roomId = roomIdInput.value;
-      if (roomId) {
-        startLocalVideo();
-      } else {
-        alert('Please enter a room ID');
+      const roomId = roomIdInput.value.trim();
+
+      if (roomId === '') {
+        return;
       }
+
+      if (peer) {
+        peer.destroy();
+        peer = null;
+      }
+
+      startLocalVideo();
+      roomIdInput.disabled = true;
+
+      const socket = io(); // Connect to the Socket.IO server
+
+      socket.on('connect', () => {
+        // Create a new peer with the Socket.IO socket and local stream
+        peer = new SimplePeer({
+          initiator: false,
+          stream: localVideo.srcObject,
+          trickle: false,
+          config: {
+            iceServers: [
+              { urls: 'stun:stun.l.google.com:19302' },
+              // Add more ICE servers as needed
+            ]
+          }
+        });
+
+        // Listen for signaling messages from the remote peer
+        peer.on('signal', data => {
+          socket.emit('signal', data); // Send signaling data to the server
+        });
+
+        // Handle incoming signaling messages from the server
+        socket.on('signal', data => {
+          peer.signal(data); // Pass the signaling data to the peer
+        });
+
+        // Listen for the 'stream' event when the remote peer's stream is available
+        peer.on('stream', remoteStream => {
+          const remoteVideo = document.createElement('video');
+          remoteVideo.srcObject = remoteStream;
+          remoteVideo.autoplay = true;
+          remoteVideo.muted = true; // Mute the remote video to prevent audio feedback
+          remoteVideo.setAttribute('playsinline', 'true'); // iOS support
+          const videoContainer = document.getElementById('video-container');
+          videoContainer.appendChild(remoteVideo);
+        });
+
+        // Handle errors
+        peer.on('error', error => {
+          console.error('Peer error:', error);
+        });
+
+        // Handle peer disconnection
+        peer.on('close', () => {
+          handlePeerDisconnect();
+        });
+      });
+
+      socket.on('disconnect', () => {
+        handlePeerDisconnect();
+      });
+
+      socket.emit('join', roomId); // Send the room ID to the server
     }
 
     function leaveMeeting() {
@@ -240,12 +297,12 @@
         peer.destroy();
         peer = null;
       }
-      localVideo.srcObject.getTracks().forEach(track => track.stop());
-      localVideo.srcObject = null;
       const remoteVideos = document.querySelectorAll('#video-container video:not(#local-video)');
       remoteVideos.forEach(video => video.remove());
-      roomIdInput.value = '';
+      roomIdInput.disabled = false;
     }
+
+    startLocalVideo();
   </script>
 </body>
 </html>
