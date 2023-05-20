@@ -236,59 +236,32 @@
       const socket = io(); // Connect to the Socket.IO server
 
       socket.on('connect', () => {
-        socket.emit('join', roomId); // Notify the server that you're joining the room
+        socket.emit('join', roomId); // Send the room ID to the server
+      });
 
-        socket.on('joined', () => {
-          console.log('Joined room:', roomId);
-        });
+      socket.on('joined', () => {
+        console.log('Successfully joined the meeting.');
+      });
 
-        socket.on('participant joined', () => {
-          console.log('Participant joined');
-        });
+      socket.on('full', () => {
+        console.log('The meeting room is full.');
+        roomIdInput.disabled = false;
+      });
 
-        socket.on('participant left', () => {
-          console.log('Participant left');
-        });
-
-        socket.on('disconnect', () => {
-          handlePeerDisconnect();
-          roomIdInput.disabled = false;
-        });
+      socket.on('disconnect', () => {
+        console.log('Disconnected from the server.');
+        roomIdInput.disabled = false;
       });
     }
 
     function leaveMeeting() {
       const socket = io(); // Connect to the Socket.IO server
-      socket.emit('leave'); // Notify the server that you're leaving the room
-
-      if (peer) {
-        peer.destroy();
-        peer = null;
-      }
-
-      const remoteVideos = document.querySelectorAll('#video-container video:not(#local-video)');
-      remoteVideos.forEach(video => video.remove());
-
-      localVideo.srcObject.getTracks().forEach(track => track.stop());
-      localVideo.srcObject = null;
-
+      socket.emit('leave'); // Notify the server that the user is leaving
+      handlePeerDisconnect();
       roomIdInput.disabled = false;
-
-      window.close();
     }
 
     startLocalVideo();
-  </script>
-  <script>
-    const socket = io(); // Connect to the Socket.IO server
-
-    socket.on('connect', () => {
-      console.log('Connected to server');
-
-      socket.on('disconnect', () => {
-        console.log('Disconnected from server');
-      });
-    });
   </script>
 </body>
 </html>
