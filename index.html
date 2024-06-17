@@ -3,19 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Command Bar</title>
+    <title>Script Repository</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <input type="text" id="commandInput" placeholder="Type your command here...">
-    <button onclick="submitCommand()">Submit</button>
-    
-    <script>
-        function submitCommand() {
-            let command = document.getElementById('commandInput').value;
-            // Store the command somewhere, e.g., in local storage for simplicity
-            localStorage.setItem('latestCommand', command);
-            alert('Command saved!');
-        }
-    </script>
+    <header>
+        <h1>Script Repository</h1>
+    </header>
+    <main>
+        <div class="search-container">
+            <form id="search-form">
+                <input type="text" id="search-input" placeholder="Search scripts...">
+                <button type="submit" id="search-button">Search</button>
+            </form>
+        </div>
+        <section id="publish">
+            <h2>Publish a New Script</h2>
+            <form id="publish-form">
+                <label for="script-title">Title:</label>
+                <input type="text" id="script-title" required>
+                <label for="script-content">Content:</label>
+                <textarea id="script-content" required></textarea>
+                <button type="submit">Publish</button>
+            </form>
+        </section>
+        <section id="scripts">
+            <h2>Published Scripts</h2>
+            <ul id="script-list">
+                <!-- Scripts will be dynamically inserted here -->
+            </ul>
+        </section>
+    </main>
+    <script src="scripts.js"></script>
 </body>
 </html>
