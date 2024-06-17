@@ -1,0 +1,156 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #141414; /* Dark background color */
+    color: white; /* Default text color */
+}
+
+header {
+    background-color: #1a1a1a; /* Slightly lighter than the background */
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #a29bfe; /* Purple color for the title */
+}
+
+main {
+    padding: 2rem;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+#search-form {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    max-width: 800px;
+}
+
+#search-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 1rem;
+}
+
+#search-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #a29bfe; /* Purple color for the button */
+    color: white;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    font-size: 1rem;
+}
+
+#search-button:hover {
+    background-color: #6c5ce7; /* Darker purple on hover */
+}
+
+section h2 {
+    color: #a29bfe; /* Purple color for section titles */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    background-color: #1a1a1a; /* Match the header background */
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+form label {
+    margin-top: 1rem;
+    color: #a29bfe;
+}
+
+form input, form textarea, form button {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+}
+
+form button {
+    margin-top: 1rem;
+    background-color: #a29bfe; /* Purple color for the button */
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #6c5ce7; /* Darker purple on hover */
+}
+
+#script-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 scripts per row */
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 2rem auto;
+    max-width: 1000px; /* Adjust the max-width as needed */
+}
+
+li {
+    background-color: #1a1a1a; /* Match the header background */
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+li h3 {
+    margin: 0;
+    padding: 0;
+    color: #a29bfe;
+}
+
+li pre {
+    background-color: #333;
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    color: white;
+}
+
+.copy-button, .delete-button {
+    background-color: #a29bfe; /* Purple color for the button */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    border-radius: 5px;
+}
+
+.copy-button:hover, .delete-button:hover {
+    background-color: #6c5ce7; /* Darker purple on hover */
+}
+
+.delete-button {
+    background-color: red;
+    margin-top: 0.5rem; /* Ensure delete button has spacing from the copy button */
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
