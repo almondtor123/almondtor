@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Detail</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1 id="script-title"></h1>
+    </header>
+    <main>
+        <section id="script-content-section">
+            <pre id="script-content"></pre>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scriptTitleElement = document.getElementById('script-title');
+            const scriptContentElement = document.getElementById('script-content');
+
+            const scriptTitle = decodeURIComponent(window.location.pathname.substring(1)); // Get the script title from the URL
+
+            const scripts = JSON.parse(localStorage.getItem('scripts')) || [];
+            const script = scripts.find(s => s.title === scriptTitle);
+
+            if (script) {
+                scriptTitleElement.textContent = script.title;
+                scriptContentElement.textContent = script.content;
+            } else {
+                scriptTitleElement.textContent = 'Script Not Found';
+                scriptContentElement.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>
