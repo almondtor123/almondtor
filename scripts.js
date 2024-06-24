@@ -56,6 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
         scriptItem.appendChild(copyButton);
         scriptItem.appendChild(deleteButton);
 
+        scriptItem.addEventListener('click', () => {
+            window.location.href = `/${encodeURIComponent(title)}`; // Redirect to new page
+        });
+
         scriptList.appendChild(scriptItem);
     }
 
