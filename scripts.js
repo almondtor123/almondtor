@@ -51,10 +51,15 @@ document.addEventListener('DOMContentLoaded', () => {
             scriptList.removeChild(scriptItem);
         });
 
+        const scriptURL = document.createElement('p');
+        const baseUrl = window.location.origin;
+        scriptURL.textContent = `loadstring(game:HttpGet("${baseUrl}/scripts/${title}.txt"))()`;
+
         scriptItem.appendChild(scriptTitle);
         scriptItem.appendChild(scriptContent);
         scriptItem.appendChild(copyButton);
         scriptItem.appendChild(deleteButton);
+        scriptItem.appendChild(scriptURL);
 
         scriptItem.addEventListener('click', () => {
             window.location.href = `script.html?title=${encodeURIComponent(title)}`; // Redirect to new page with script title as query parameter
@@ -67,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const scripts = JSON.parse(localStorage.getItem('scripts')) || [];
         scripts.push({ title, content });
         localStorage.setItem('scripts', JSON.stringify(scripts));
+        saveScriptToFile(title, content);
     }
 
     function loadScripts() {
@@ -98,5 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }).catch(err => {
             console.error('Could not copy text: ', err);
         });
+    }
+
+    function saveScriptToFile(title, content) {
+        const a = document.createElement('a');
+        const file = new Blob([content], { type: 'text/plain' });
+        a.href = URL.createObjectURL(file);
+        a.download = `${title}.txt`;
+        a.click();
+        URL.revokeObjectURL(a.href);
     }
 });
