@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         copyButton.textContent = 'Copy to Clipboard';
         copyButton.className = 'copy-button';
         copyButton.addEventListener('click', (e) => {
-            e.stopPropagation(); 
+            e.stopPropagation();
             copyToClipboard(content);
         });
 
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const scriptURL = document.createElement('p');
-        const baseUrl = 'https://almondtor123.github.io/almondtor'; // Replace with your GitHub Pages base URL
-        scriptURL.textContent = `loadstring(game:HttpGet("${baseUrl}/${title}.txt"))()`;
+        const baseUrl = 'https://almondtor123.github.io/almondtor';
+        scriptURL.textContent = `loadstring(game:HttpGet("${baseUrl}/script.html?title=${encodeURIComponent(title)}"))()`;
 
         scriptItem.appendChild(scriptTitle);
         scriptItem.appendChild(scriptContent);
@@ -113,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
         a.click();
         URL.revokeObjectURL(a.href);
 
-        // Save to GitHub repository (Note: This would need GitHub API integration)
-        // For simplicity, you can manually add the generated .txt files to your repository
+        // Additional step: update the repository to include the new script file (you would need to push the file to your GitHub repository)
     }
 });
