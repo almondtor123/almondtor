@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const scriptURLInput = document.createElement('input');
         scriptURLInput.type = 'text';
         scriptURLInput.readOnly = true;
-        scriptURLInput.value = `loadstring(game:HttpGet("https://almondtor123.github.io/almondtor/script.html?title=${encodeURIComponent(title)}"))()`;
+        scriptURLInput.value = `loadstring(game:HttpGet("https://almondtor123.github.io/almondtor/${encodeURIComponent(title)}.txt"))()`;
         scriptURLInput.className = 'script-url-input';
         scriptURLInput.addEventListener('click', (e) => {
             e.stopPropagation(); // Prevent navigation when clicking inside the input
