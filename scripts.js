@@ -50,15 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
             scriptList.removeChild(scriptItem);
         });
 
-        const scriptURL = document.createElement('p');
-        const baseUrl = 'https://almondtor123.github.io/almondtor';
-        scriptURL.textContent = `loadstring(game:HttpGet("${baseUrl}/script.html?title=${encodeURIComponent(title)}"))()`;
+        const scriptURLInput = document.createElement('input');
+        scriptURLInput.type = 'text';
+        scriptURLInput.readOnly = true;
+        scriptURLInput.value = `loadstring(game:HttpGet("https://almondtor123.github.io/almondtor/script.html?title=${encodeURIComponent(title)}"))()`;
+        scriptURLInput.className = 'script-url-input';
 
         scriptItem.appendChild(scriptTitle);
         scriptItem.appendChild(scriptContent);
         scriptItem.appendChild(copyButton);
         scriptItem.appendChild(deleteButton);
-        scriptItem.appendChild(scriptURL);
+        scriptItem.appendChild(scriptURLInput);
 
         scriptItem.addEventListener('click', () => {
             window.location.href = `script.html?title=${encodeURIComponent(title)}`;
