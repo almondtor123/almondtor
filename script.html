@@ -21,7 +21,7 @@
             const scriptContentElement = document.getElementById('script-content');
 
             const urlParams = new URLSearchParams(window.location.search);
-            const scriptTitle = urlParams.get('title'); // Get the script title from the URL
+            const scriptTitle = urlParams.get('title'); 
 
             const scripts = JSON.parse(localStorage.getItem('scripts')) || [];
             const script = scripts.find(s => s.title === scriptTitle);
