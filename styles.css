@@ -114,21 +114,24 @@ li {
     color: white;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Ensure equal height */
+    height: 200px; /* Fixed height for each box */
+    overflow: hidden; /* Hide overflow content */
 }
 
 li h3 {
     margin: 0 0 1rem 0;
     color: #a29bfe;
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
 li pre {
     background-color: #333;
     padding: 1rem;
     border-radius: 5px;
-    overflow-x: auto;
+    overflow: auto; /* Scrollable content */
     color: white;
     flex-grow: 1; /* Ensure the content grows */
+    margin: 0; /* Remove default margin */
 }
 
 .copy-button, .delete-button {
