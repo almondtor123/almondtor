@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('search-form');
     const searchInput = document.getElementById('search-input');
 
-    // Load scripts from localStorage on page load
     loadScripts();
 
     form.addEventListener('submit', (e) => {
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         copyButton.textContent = 'Copy to Clipboard';
         copyButton.className = 'copy-button';
         copyButton.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent triggering the parent click event
+            e.stopPropagation(); 
             copyToClipboard(content);
         });
 
@@ -46,14 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteButton.textContent = 'Delete';
         deleteButton.className = 'delete-button';
         deleteButton.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent triggering the parent click event
+            e.stopPropagation();
             removeScript(title, content);
             scriptList.removeChild(scriptItem);
         });
 
         const scriptURL = document.createElement('p');
-        const baseUrl = window.location.origin;
-        scriptURL.textContent = `loadstring(game:HttpGet("${baseUrl}/scripts/${title}.txt"))()`;
+        const baseUrl = 'https://almondtor123.github.io/almondtor'; // Replace with your GitHub Pages base URL
+        scriptURL.textContent = `loadstring(game:HttpGet("${baseUrl}/${title}.txt"))()`;
 
         scriptItem.appendChild(scriptTitle);
         scriptItem.appendChild(scriptContent);
@@ -62,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scriptItem.appendChild(scriptURL);
 
         scriptItem.addEventListener('click', () => {
-            window.location.href = `script.html?title=${encodeURIComponent(title)}`; // Redirect to new page with script title as query parameter
+            window.location.href = `script.html?title=${encodeURIComponent(title)}`;
         });
 
         scriptList.appendChild(scriptItem);
@@ -90,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function searchScript(searchTerm) {
         const scripts = JSON.parse(localStorage.getItem('scripts')) || [];
-        scriptList.innerHTML = ''; // Clear the current list
+        scriptList.innerHTML = '';
         scripts.forEach(script => {
             if (script.title.toLowerCase().includes(searchTerm)) {
                 addScriptToList(script.title, script.content);
@@ -113,5 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
         a.download = `${title}.txt`;
         a.click();
         URL.revokeObjectURL(a.href);
+
+        // Save to GitHub repository (Note: This would need GitHub API integration)
+        // For simplicity, you can manually add the generated .txt files to your repository
     }
 });
