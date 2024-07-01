@@ -99,7 +99,7 @@ form button:hover {
 
 #script-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Fixed 3 columns */
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     list-style: none;
     padding: 0;
@@ -114,24 +114,24 @@ li {
     color: white;
     display: flex;
     flex-direction: column;
-    height: 200px; /* Fixed height for each box */
-    overflow: hidden; /* Hide overflow content */
+    height: 200px;
+    overflow: hidden;
 }
 
 li h3 {
     margin: 0 0 1rem 0;
     color: #a29bfe;
-    flex-shrink: 0; /* Prevent shrinking */
+    flex-shrink: 0;
 }
 
 li pre {
     background-color: #333;
     padding: 1rem;
     border-radius: 5px;
-    overflow: auto; /* Scrollable content */
+    overflow: auto;
     color: white;
-    flex-grow: 1; /* Ensure the content grows */
-    margin: 0; /* Remove default margin */
+    flex-grow: 1;
+    margin: 0;
 }
 
 .copy-button, .delete-button {
@@ -155,4 +155,21 @@ li pre {
 
 .delete-button:hover {
     background-color: darkred;
+}
+
+.script-url-input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.script-url-input:focus {
+    outline: none;
+    background-color: #444;
 }
