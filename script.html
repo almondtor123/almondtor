@@ -3,35 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Script Detail</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Script Content</title>
 </head>
 <body>
-    <header>
-        <h1 id="script-title"></h1>
-    </header>
-    <main>
-        <section id="script-content-section">
-            <pre id="script-content"></pre>
-        </section>
-    </main>
+    <pre id="script-content"></pre>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const scriptTitleElement = document.getElementById('script-title');
             const scriptContentElement = document.getElementById('script-content');
-
             const urlParams = new URLSearchParams(window.location.search);
-            const scriptTitle = urlParams.get('title'); 
+            const scriptTitle = urlParams.get('title');
 
             const scripts = JSON.parse(localStorage.getItem('scripts')) || [];
             const script = scripts.find(s => s.title === scriptTitle);
 
             if (script) {
-                scriptTitleElement.textContent = script.title;
                 scriptContentElement.textContent = script.content;
             } else {
-                scriptTitleElement.textContent = 'Script Not Found';
-                scriptContentElement.textContent = '';
+                scriptContentElement.textContent = 'Script Not Found';
             }
         });
     </script>
