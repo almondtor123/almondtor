@@ -2,22 +2,21 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #141414; /* Dark background color */
-    color: white; /* Default text color */
+    background-color: #141414;
+    color: white;
 }
 
 header {
-    background-color: #1a1a1a; /* Slightly lighter than the background */
+    background-color: #1a1a1a;
     color: white;
     padding: 1rem;
     text-align: center;
-    position: relative;
 }
 
 header h1 {
     margin: 0;
     font-size: 2rem;
-    color: #a29bfe; /* Purple color for the title */
+    color: #a29bfe;
 }
 
 main {
@@ -49,7 +48,7 @@ main {
 #search-button {
     padding: 0.5rem 1rem;
     border: none;
-    background-color: #a29bfe; /* Purple color for the button */
+    background-color: #a29bfe;
     color: white;
     cursor: pointer;
     border-radius: 0 5px 5px 0;
@@ -57,18 +56,18 @@ main {
 }
 
 #search-button:hover {
-    background-color: #6c5ce7; /* Darker purple on hover */
+    background-color: #6c5ce7;
 }
 
 section h2 {
-    color: #a29bfe; /* Purple color for section titles */
+    color: #a29bfe;
 }
 
 form {
     display: flex;
     flex-direction: column;
     margin-top: 2rem;
-    background-color: #1a1a1a; /* Match the header background */
+    background-color: #1a1a1a;
     padding: 1rem;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -89,38 +88,37 @@ form input, form textarea, form button {
 
 form button {
     margin-top: 1rem;
-    background-color: #a29bfe; /* Purple color for the button */
+    background-color: #a29bfe;
     color: white;
     cursor: pointer;
 }
 
 form button:hover {
-    background-color: #6c5ce7; /* Darker purple on hover */
+    background-color: #6c5ce7;
 }
 
 #script-list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 scripts per row */
+    grid-template-columns: repeat(3, 1fr); /* Fixed 3 columns */
     gap: 1rem;
     list-style: none;
     padding: 0;
     margin: 2rem auto;
-    max-width: 1000px; /* Adjust the max-width as needed */
 }
 
 li {
-    background-color: #1a1a1a; /* Match the header background */
+    background-color: #1a1a1a;
     padding: 1rem;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     color: white;
     display: flex;
     flex-direction: column;
+    height: 100%; /* Ensure equal height */
 }
 
 li h3 {
-    margin: 0;
-    padding: 0;
+    margin: 0 0 1rem 0;
     color: #a29bfe;
 }
 
@@ -130,10 +128,11 @@ li pre {
     border-radius: 5px;
     overflow-x: auto;
     color: white;
+    flex-grow: 1; /* Ensure the content grows */
 }
 
 .copy-button, .delete-button {
-    background-color: #a29bfe; /* Purple color for the button */
+    background-color: #a29bfe;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -143,12 +142,12 @@ li pre {
 }
 
 .copy-button:hover, .delete-button:hover {
-    background-color: #6c5ce7; /* Darker purple on hover */
+    background-color: #6c5ce7;
 }
 
 .delete-button {
     background-color: red;
-    margin-top: 0.5rem; /* Ensure delete button has spacing from the copy button */
+    margin-top: 0.5rem;
 }
 
 .delete-button:hover {
